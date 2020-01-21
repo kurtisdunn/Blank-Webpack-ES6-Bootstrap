@@ -1,16 +1,12 @@
-@import 'bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 html, body {
   //color: #3F4041;
   height: 100%;
 }
 
-html {
-  background:yellowgreen;
-}
-
 body {
-	background-color: transparent;
+	background-color: #333;
 }
 
 h1{
