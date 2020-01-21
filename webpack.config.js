@@ -1,58 +1,58 @@
-const camelCase = require('camelcase');
-const path = require('path');
 const webpack = require('webpack');
-const pkg = require(path.join(process.cwd(), 'package.json'));
-const shouldMininimize = process.argv.indexOf('--min') !== -1;
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const standardConfig = {
-  devtool: 'source-map',
+module.exports = {
   entry: './src/index.js',
-    output: {
-      path: './dist',
-      filename: 'index.js'
-    },
+  mode: 'development',
   module: {
-    noParse: /node_modules\/knockout\/build\/*.*/,
-    loaders: [{
-      test: /\.scss$/,
-      loaders: ['style', 'css', 'sass']
-    }, {
-      test: /\.html$/,
-      loader: 'html'
-    }, {
-      test: /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
-      loader: 'file'
-    }, {
-      test: /\.js$/,
-      loader: 'babel',
-      query: {
-        presets: ['babel-preset-es2015']
+    rules: [{
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+            loader: 'style-loader' // creates style nodes from JS strings
+          },
+          {
+            loader: 'css-loader' // translates CSS into CommonJS
+          },
+          {
+            loader: 'sass-loader' // compiles Sass to CSS
+          }
+        ]
+      },
+      {
+        test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/'
+          }
+        }]
       }
-    }]
+    ]
   },
-  devServer: {
-    port: 8000,
-    contentBase: 'src/',
-    inline: true
+  resolve: {
+    extensions: ['*', '.js', '.jsx']
+  },
+  output: {
+    path: __dirname + '/dist',
+    publicPath: '/',
+    filename: 'bundle.js'
   },
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      hash:true,
-      inject: false
+      title: 'Blank Webpack ES^ Bootstrap',
+      template: 'src/index.html'
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
-      minimize: true
-    })
-  ]
+    new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
+  ],
+  devServer: {
+    contentBase: './dist',
+    hot: true
+  }
 };
-
-if (shouldMininimize) {
-  Object.assign(standardConfig.entry, {
-    'dist/index.min.js': './src/index.js'
-  });
-}
-
-module.exports = standardConfig;
