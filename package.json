@@ -1,5 +1,5 @@
 {
-  "name": "blank_webpack_es6",
+  "name": "lit-element-webpack-bootstrap",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -9,30 +9,30 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kurtis-dunn/Blank-Webpack-ES6-Bootstrap.git"
+    "url": "git+https://github.com/kurtis-dunn/lit-element-webpack-bootstrap.git"
   },
   "bugs": {
-    "url": "https://github.com/kurtis-dunn/Blank-Webpack-ES6-Bootstrap/issues"
+    "url": "https://github.com/kurtis-dunn/lit-element-webpack-bootstrap/issues"
   },
-  "homepage": "https://github.com/kurtis-dunn/Blank-Webpack-ES6-Bootstrap#readme",
+  "homepage": "https://github.com/kurtis-dunn/lit-element-webpack-bootstrap#readme",
   "author": "Kurtis Dunn",
   "dependencies": {
+    "@popperjs/core": "^2.0.0",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
-    "popper.js": "^1.16.0"
+    "lit-element": "^2.2.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.1.2",
-    "@babel/preset-env": "^7.1.0",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.4",
+    "@babel/core": "^7.8.3",
+    "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^0.28.11",
     "empty-module": "0.0.2",
     "file-loader": "^3.0.1",
     "html-webpack-plugin": "^4.0.0-beta.8",
-    "node-sass": "^3.9.0",
+    "node-sass": "^4.13.1",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
+    "typescript": "^3.7.5",
     "webpack": "^4.23.1",
     "webpack-bundle-analyzer": "^3.5.2",
     "webpack-cli": "^3.3.8",

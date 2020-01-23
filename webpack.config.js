@@ -1,14 +1,29 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.ts',
   mode: 'development',
+  
   module: {
     rules: [{
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        use: ['babel-loader']
+      test: /\.(tsx)$/,
+      include: __dirname,
+      exclude: /node_modules/,
+      use:{
+          options: {
+            configFileName: 'tsconfig.json',
+            useTranspileModule: true,
+            forceIsolatedModules: true,
+            useCache: true,
+            useBabel: true,
+            babelOptions: {
+              babelrc: false /* Important line */
+            },
+            babelCore: '@babel/core'
+          },
+          loader: 'awesome-typescript-loader'
+        }
       },
       {
         test: /\.scss$/,
@@ -36,23 +51,18 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.ts', '.tsx', '.js']
   },
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
     filename: 'bundle.js'
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'Blank Webpack ES^ Bootstrap',
-      template: 'src/index.html'
-    }),
-    new webpack.ContextReplacementPlugin(/\.\/locale$/, 'empty-module', false, /js$/)
+    new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
-    contentBase: './dist',
+    contentBase: path.resolve(__dirname, 'dist'),
     hot: true
   }
 };
